@@ -1,0 +1,33 @@
+server:
+  port: 3001
+spring:
+  application:
+    name: API-GATEWAY-SERVICE
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default:zone: http://localhost:8761/eureka/
+    instance:
+      hostname: localhost
+
+  cloud:
+    gateway:
+      routes:
+        - id: RESIGNATION-SERVICE
+          uri: http://localhost:8081
+          predicates:
+            - Path=/resignation-api/**
+
+        - id: EMPLOYEE-SERVICE
+          uri: http://localhost:8082
+          predicates:
+            - Path=/employee-api/**
+
+        - id: EXIT-FORM-SERVICE
+          uri: http://localhost:8083
+          predicates:
+            - Path=/exit-api/**
+
